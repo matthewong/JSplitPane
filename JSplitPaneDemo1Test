@@ -1,0 +1,12 @@
+import javax.swing.JFrame;
+ 
+public class JSplitPaneDemo1Test 
+{
+   public static void main( String args[] )
+   { 
+      JSplitPaneDemo1 jSplitPaneDemo1 = new JSplitPaneDemo1(); // New DrawFrame object
+      jSplitPaneDemo1.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE ); // Set Program to shutdown when frame closses
+      jSplitPaneDemo1.setSize( 300, 150 ); // Set frame size
+      jSplitPaneDemo1.setVisible( true ); // Display frame
+   }
+} 
