@@ -1,0 +1,78 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants; 
+import javax.swing.Icon; 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.ListSelectionModel;
+import java.awt.Color;
+import java.awt.Dimension;
+
+public class JSplitPaneDemo1 extends JFrame {
+    
+    private JPanel color;
+    private JList list; // List to display colors
+    private JSplitPane splitPane;
+    private String[] colorNames = {"Black", "Blue", "Cyan", "Dark Gray", "Gray", "Green", "Light Gray",
+            "Magenta", "Orange", "Pink", "Red", "White", "Yellow"};
+    private final Color colors[] = { Color.BLACK, Color.BLUE, Color.CYAN, 
+      Color.DARK_GRAY, Color.GRAY, Color.GREEN, Color.LIGHT_GRAY, 
+      Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.WHITE, 
+      Color.YELLOW };
+    private JScrollPane listScrollPane;
+    
+    public JSplitPaneDemo1() {
+        
+        super("JSplitPaneDemo1");
+        
+        // Create List of colors 
+        ColorListSelectionHandler listSelectionListener = new ColorListSelectionHandler();
+        list = new JList(colorNames);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setSelectedIndex(0);
+        list.addListSelectionListener(listSelectionListener);
+        
+        // Create new scroll pane with color list
+        listScrollPane = new JScrollPane(list);
+        
+        // Create new JPanel for color
+        color = new JPanel();
+        color.setBackground(Color.BLACK);
+        
+        // Create Split Pane with scroll pane and color JPanel
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listScrollPane, color);
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setDividerLocation(50);
+        
+        // Set min size of inside components
+        Dimension minimumSize = new Dimension(100, 50);
+        listScrollPane.setMinimumSize(minimumSize);
+        color.setMinimumSize(minimumSize);
+        
+        // Set max size of inside components
+        Dimension maximumSize = new Dimension(300, 50);
+        listScrollPane.setMaximumSize(maximumSize);
+        color.setMaximumSize(maximumSize);
+        
+        //Set min size of split pane
+        splitPane.setPreferredSize(new Dimension(100, 200));
+        
+        // set one touch expandable
+        splitPane.setOneTouchExpandable(true);
+        
+        // Add split pane to JFrame
+        add(splitPane);
+        
+    }
+    
+    private class ColorListSelectionHandler implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent event) {
+            color.setBackground(colors[list.getSelectedIndex()]);
+        }
+    }
+}
